@@ -25,17 +25,26 @@ namespace MyrspovenAssignment.Controllers
                     grant_type = "client_credentials"
                 }).ReceiveJson<Token>();
 
-            var response = await "https://datastorage-fake-myrspoven.azurewebsites.net"
+            var buildingsResponse = await "https://datastorage-fake-myrspoven.azurewebsites.net"
                   .AppendPathSegment("Building/GetBuildings")
                   .WithOAuthBearerToken(result.access_token)
                   .PostAsync();
-            var buildings = await response.GetJsonAsync<List<Building>>().ConfigureAwait(true);
+            var buildings = await buildingsResponse.GetJsonAsync<List<Building>>().ConfigureAwait(true);
+
+            var signalsResponse = await "https://datastorage-fake-myrspoven.azurewebsites.net"
+              .AppendPathSegment("Signal/GetSignals")
+             .WithOAuthBearerToken(result.access_token)
+                 .PostJsonAsync(new { buildingId = 1 });
+            var singals = await signalsResponse.GetJsonAsync<List<Signal>>().ConfigureAwait(true);
+
+            var signalsValuesResponse = await "https://datastorage-fake-myrspoven.azurewebsites.net"
+  .AppendPathSegment("Signal/GetSignalValues")
+    .WithOAuthBearerToken(result.access_token)
+     .PostJsonAsync(new { buildingId = 1 });
+            var singalValues = await signalsValuesResponse.GetJsonAsync<List<SignalData>>().ConfigureAwait(true);
 
 
-
-
-
-            return Ok(buildings);
+            return Ok(singalValues);
         }
 
         public IActionResult Privacy()
