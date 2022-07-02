@@ -1,8 +1,7 @@
-﻿namespace MyrspovenAssignment.Controllers
+﻿namespace MyrspovenAssignment.ViewModels
 {
-    public class Signal
+    public class SignalViewModel
     {
-
         public int Id { get; set; }
         public int BuildingId { get; set; }
         public string Name { get; set; }

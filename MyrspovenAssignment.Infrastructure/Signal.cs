@@ -3,8 +3,6 @@
     public class Signal
     {
         public int Id { get; set; }
-        public int ExternalId { get; set; }
-        public int ExternalBuildingId { get; set; }
         public string Name { get; set; }
         public double Min { get; set; }
         public double Max { get; set; }
